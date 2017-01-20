@@ -1,0 +1,23 @@
+{
+  "name": "findcnpj",
+  "version": "1.0.0",
+  "description": "Find the data of a company by cnpj",
+  "repository": "https://github.com/davidalves1/findcnpj",
+  "main": "index.js",
+  "bin": {
+    "findcnpj": "./bin/index.js"
+  },
+  "preferGlobal": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "davidalves1 <alves.david@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidalves1/findcnpj/issues"
+  },
+  "dependencies": {
+    "meow": "^3.7.0"
+  }
+}
