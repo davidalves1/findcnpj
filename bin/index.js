@@ -2,7 +2,6 @@
 
 'use strict';
 
-const https = require('https');
 const meow = require('meow');
 
 const cli = meow(`
