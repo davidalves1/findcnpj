@@ -1,6 +1,4 @@
-'use strict';
-
-const https = require('https');
+const axios = require('axios');
 
 class FindCnpj {
 
@@ -15,40 +13,38 @@ class FindCnpj {
 	}
 
 	find(cnpj) {
-		https
-		.get(`https://www.receitaws.com.br/v1/cnpj/${cnpj}`, 
-			response => {
+		if (this.validateCnpj(cnpj))
+			return this.receitaWs(cnpj);
+		
+		return Promise.reject(false);
+	}
 
-				let res = '';
+	receitaWs(cnpj) {
+		return axios
+			.get(`https://www.receitaws.com.br/v1/cnpj/${cnpj}`)
+			.then(response => this.handleSuccess(response.data))
+			.catch(this.handleError);
+	}
 
-				response.on('data', data => {
-					res += data;
-				});
+	handleSuccess(response) {
+		return {
+			situacao: response.situacao,
+			atividade_principal: response.atividade_principal[0].text,
+			natureza_juridica: response.natureza_juridica,
+			abertura: response.abertura,
+			nome: response.nome,
+			fantasia: response.fantasia,
+			logradouro: response.logradouro,
+			numero: response.numero,
+			bairro: response.bairro,
+			municipio: response.municipio,
+			uf: response.uf
+		}	
+	}
 
-				response.on('error', e => {
-					return Promise.reject('O CNPJ informado é inválido.')
-				});
-
-				response.on('end', () => {
-					res = JSON.parse(res);
-
-					if (res.status === 'OK')
-						return {
-							situacao: res.situacao,
-							atividade_principal: res.atividade_principal[0].text,
-							natureza_juridica: res.natureza_juridica,
-							abertura: res.abertura,
-							nome: res.nome,
-							fantasia: res.fantasia,
-							logradouro: res.logradouro,
-							numero: res.numero,
-							bairro: res.bairro,
-							municipio: res.municipio,
-							uf: res.uf
-						}
-						else
-							Promise.reject('O CNPJ informado é inválido.')
-					});
-			});
+	handleError() {
+		return Promise.reject('O CNPJ informado é inválido.');
 	}
 }
+
+module.exports = FindCnpj;

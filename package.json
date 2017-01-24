@@ -12,12 +12,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "davidalves1 <alves.david@outlook.com>",
+  "author": {
+    "name": "davidalves1",
+    "email": "alves.david@outlook.com",
+    "site": "davidalves1.github.io"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/davidalves1/findcnpj/issues"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "meow": "^3.7.0"
   }
 }

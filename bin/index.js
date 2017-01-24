@@ -3,6 +3,7 @@
 'use strict';
 
 const meow = require('meow');
+const FindCnpj = require('./findcnpj.js');
 
 const cli = meow(`
     Modo de uso:
@@ -13,56 +14,22 @@ const cli = meow(`
 
 `, {});
 
-let cnpj = process.argv.slice(2)[0];
-cnpj = cnpj.replace(/\D/g, '');
+const cnpj = process.argv.slice(2)[0];
+const findcnpj = new FindCnpj();
 
-if (cnpj.length !== 14) {
-	console.log('Ops, informe um CNPJ válido para consultar.');
-	return;
-}
-
-
-https
-	.get(`https://www.receitaws.com.br/v1/cnpj/${cnpj}`, 
-		response => {
-
-			let res = '';
-
-			response.on('data', data => {
-				res += data;
-			});
-
-			response.on('error', e => {
-				handleError(e);
-			});
-
-			response.on('end', () => {
-				res = JSON.parse(res);
-
-				if (res.status === 'OK')
-					handleSuccess(res);
-				else
-					handleError(res.message);
-
-		});
-	});
-
-function handleSuccess(data) {
-	console.log(`
-		Situação: ${data.situacao},
-		Atividade principal: ${data.atividade_principal[0].text},
-		Natureza jurídica: ${data.natureza_juridica},
-		Data de abertura: ${data.abertura},
-		Razão Social: ${data.nome},
-		Nome Fantasia: ${data.fantasia},
-		Logradouro: ${data.logradouro},
-		Número: ${data.numero},
-		Bairro: ${data.bairro},
-		Cidade: ${data.municipio},
-		Estado: ${data.uf}
-	`);
-}
-
-function handleError(err) {
-	console.log(err);
-}
+findcnpj.find(cnpj)
+	.then(response => {
+		console.log(`
+			Atividade principal: ${response.atividade_principal},
+			Natureza juridica: ${response.natureza_juridica},
+			Data de bertura: ${response.abertura},
+			Razão Social: ${response.nome},
+			Nome Fantasia: ${response.fantasia},
+			Logradouro: ${response.logradouro},
+			Número: ${response.numero},
+			Bairro: ${response.bairro},
+			Cidade: ${response.municipio},
+			Estado: ${response.u}f
+		`);
+	})
+	.catch(response => console.log(response));

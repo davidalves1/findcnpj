@@ -1,11 +1,11 @@
-# CLI Boilerplate
+# findcnpj
 
-A boilerplate for developing cli apps faster
+:tv: A great tool to find the data of a company by CNPJ
 
-### Contribuições
+### Contribution
 
 Create a [issue](https://github.com/davidalves1/clima-app/issues/new) or send a **pull request** and And help us make this project better.
 
 ### License
 
-MIT © David Alves de Souza
+[MIT](https://github.com/davidalves1/findcnpj/blob/master/LICENSE) © David Alves de Souza
