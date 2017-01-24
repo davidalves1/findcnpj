@@ -20,10 +20,12 @@ class FindCnpj {
 	}
 
 	receitaWs(cnpj) {
+		const CnpjValue = cnpj.replace(/\D/g, '');
+
 		return axios
-			.get(`https://www.receitaws.com.br/v1/cnpj/${cnpj}`)
+			.get(`https://www.receitaws.com.br/v1/cnpj/${CnpjValue}`)
 			.then(response => this.handleSuccess(response.data))
-			.catch(this.handleError);
+			.catch(error => console.log(error));
 	}
 
 	handleSuccess(response) {
