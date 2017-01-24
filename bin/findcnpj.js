@@ -5,7 +5,7 @@ class FindCnpj {
 	validateCnpj(cnpj) {
 		const CnpjValue = cnpj.replace(/\D/g, '');
 
-		if (cnpj.length === 14) {
+		if (CnpjValue.length === 14) {
 			return true;
 		}
 
@@ -16,7 +16,7 @@ class FindCnpj {
 		if (this.validateCnpj(cnpj))
 			return this.receitaWs(cnpj);
 		
-		return Promise.reject(false);
+		return this.handleError();
 	}
 
 	receitaWs(cnpj) {
@@ -37,6 +37,7 @@ class FindCnpj {
 			logradouro: response.logradouro,
 			numero: response.numero,
 			bairro: response.bairro,
+			cep: response.cep,
 			municipio: response.municipio,
 			uf: response.uf
 		}	

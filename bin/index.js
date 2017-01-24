@@ -20,16 +20,16 @@ const findcnpj = new FindCnpj();
 findcnpj.find(cnpj)
 	.then(response => {
 		console.log(`
-			Atividade principal: ${response.atividade_principal},
-			Natureza juridica: ${response.natureza_juridica},
-			Data de bertura: ${response.abertura},
+			Atividade Principal: ${response.atividade_principal},
+			Natureza Jurídica: ${response.natureza_juridica},
+			Data de Abertura: ${response.abertura},
 			Razão Social: ${response.nome},
 			Nome Fantasia: ${response.fantasia},
 			Logradouro: ${response.logradouro},
 			Número: ${response.numero},
 			Bairro: ${response.bairro},
 			Cidade: ${response.municipio},
-			Estado: ${response.u}f
+			Estado: ${response.uf}
 		`);
 	})
 	.catch(response => console.log(response));

@@ -15,8 +15,9 @@
   "author": {
     "name": "davidalves1",
     "email": "alves.david@outlook.com",
-    "site": "davidalves1.github.io"
+    "url": "davidalves1.github.io"
   },
+  "homepage": "https://github.com/davidalves1/findcnpj",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/davidalves1/findcnpj/issues"
