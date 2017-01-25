@@ -16,7 +16,7 @@ class FindCnpj {
 		if (this.validateCnpj(cnpj))
 			return this.receitaWs(cnpj);
 		
-		return this.handleError();
+		return Promise.reject('O CNPJ informado é inválido.');
 	}
 
 	receitaWs(cnpj) {
@@ -24,29 +24,31 @@ class FindCnpj {
 
 		return axios
 			.get(`https://www.receitaws.com.br/v1/cnpj/${CnpjValue}`)
-			.then(response => this.handleSuccess(response.data))
+			.then(this.handleSuccess.bind(this))
 			.catch(error => console.log(error));
 	}
 
 	handleSuccess(response) {
-		return {
-			situacao: response.situacao,
-			atividade_principal: response.atividade_principal[0].text,
-			natureza_juridica: response.natureza_juridica,
-			abertura: response.abertura,
-			nome: response.nome,
-			fantasia: response.fantasia,
-			logradouro: response.logradouro,
-			numero: response.numero,
-			bairro: response.bairro,
-			cep: response.cep,
-			municipio: response.municipio,
-			uf: response.uf
-		}	
-	}
+		if (response.data.status === 'ERROR') {
+			return Promise.reject('O CNPJ informado é inválido.');
+		}
 
-	handleError() {
-		return Promise.reject('O CNPJ informado é inválido.');
+		let data = response.data;
+
+		return {
+			situacao: data.situacao,
+			atividade_principal: data.atividade_principal[0].text,
+			natureza_juridica: data.natureza_juridica,
+			abertura: data.abertura,
+			nome: data.nome,
+			fantasia: data.fantasia,
+			logradouro: data.logradouro,
+			numero: data.numero,
+			bairro: data.bairro,
+			cep: data.cep,
+			municipio: data.municipio,
+			uf: data.uf
+		}	
 	}
 }
 
