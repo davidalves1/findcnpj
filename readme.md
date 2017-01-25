@@ -3,11 +3,10 @@
 :tv: A great tool to find the data of a company by CNPJ
 
 ### How to use
-```shell
 
+```shell
 $ findcnpj <cnpj>
 $ findcnpj 12345678000190
-
 ```
 
 ### Contribution
